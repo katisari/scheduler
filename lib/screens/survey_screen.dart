@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler/screens/todo_screen.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class SurveyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: const Text('Getting started'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Getting started'),
+        ),
+        body: Container(
+          child: InitialForm(),
+        ),
       ),
-      body: Container(
-        child: InitialForm(),
-      ),
-    ));
+    );
   }
 }
 
@@ -58,27 +60,25 @@ class _InitialForm extends State<InitialForm> {
             onPressed: () {
               selectTime(context, true);
               print(_startTime);
-              // setState(() {
-              //   showBegin = beginText + _startTime.format(context);
-              // });
             },
             child: Text(
               showBegin,
               style: TextStyle(fontSize: 20.0),
             ),
           ),
+          SizedBox(
+            height: 20.0,
+          ),
           FlatButton(
             onPressed: () {
               selectTime(context, false);
-              // setState(() {
-              //   showEnd = endText + _endTime.format(context);
-              // });
             },
             child: Text(
               showEnd,
               style: TextStyle(fontSize: 20.0),
             ),
           ),
+          SizedBox(height: 20.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -96,7 +96,12 @@ class _InitialForm extends State<InitialForm> {
             ],
           ),
           RaisedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute<Null> (builder: (BuildContext) {
+                return new TodoScreen();
+              }));
+              // Navigator.of(context).pushNamed(TodoScreen.routeName);
+            },
             child: Text('Submit'),
           ),
         ],
