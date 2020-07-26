@@ -29,24 +29,31 @@ class _InitialForm extends State<InitialForm> {
   TimeOfDay _startTime = TimeOfDay.now();
   TimeOfDay _endTime = TimeOfDay.now();
   TimeOfDay picked = TimeOfDay.now();
-  String beginText = 'When do you want to start your day?\n';
-  String showBegin = 'When do you want to start your day?\n';
-  String endText = 'When do you want to end your day?\n';
-  String showEnd = 'When do you want to end your day?\n';
+  String beginText = 'When do you want to start your day? 😃\n';
+  String showBegin = 'When do you want to start your day? 😃\n';
+  String endText = 'When do you want to end your day? 😴\n';
+  String showEnd = 'When do you want to end your day? 😴\n';
   Future<Null> selectTime(BuildContext context, bool isStart) async {
     picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    setState(() {
-      if (isStart) {
-        _startTime = picked;
-      } else {
-        _endTime = picked;
-      }
-      showBegin = beginText + _startTime.format(context);
-      showEnd = endText + _endTime.format(context);
-    });
+    setState(
+      () {
+        if (isStart) {
+          // account for except error
+          if (picked != null) {
+            _startTime = picked;
+          }
+        } else {
+          if (picked != null) {
+            _endTime = picked;
+          }
+        }
+        showBegin = beginText + _startTime.format(context);
+        showEnd = endText + _endTime.format(context);
+      },
+    );
   }
 
   @override
@@ -97,8 +104,9 @@ class _InitialForm extends State<InitialForm> {
           ),
           RaisedButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute<Null> (builder: (BuildContext) {
-                return new TodoScreen();
+              Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return TodoScreen();
               }));
               // Navigator.of(context).pushNamed(TodoScreen.routeName);
             },
