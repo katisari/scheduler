@@ -6,9 +6,28 @@ class TodoScreen extends StatefulWidget {
   _TodoScreenState createState() => _TodoScreenState();
 }
 
+class TaskTile extends StatefulWidget {
+  @override
+  _TaskTileState createState() => _TaskTileState();
+}
+
+class _TaskTileState extends State<TaskTile> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class TaskData {
+  String taskName;
+  int hours;
+  TaskData(this.taskName, this.hours);
+}
+
 class _TodoScreenState extends State<TodoScreen> {
-  List<String> myItems = ["Hello", "World"];
-  TextEditingController dialogTextController = TextEditingController();
+  List<TaskData> myItems = [];
+  TextEditingController taskTextController = TextEditingController();
+  TextEditingController timeTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +43,7 @@ class _TodoScreenState extends State<TodoScreen> {
             child: ListView.builder(
               itemCount: myItems.length,
               itemBuilder: (context, index) {
-                final item = myItems[index];
+                final item = myItems[index].taskName;
                 return Dismissible(
                   key: Key(item),
                   background: Container(color: Colors.red),
@@ -50,14 +69,24 @@ class _TodoScreenState extends State<TodoScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          dialogTextController.clear();
+          taskTextController.clear();
+          timeTextController.clear();
           bool shouldUpdate = await showDialog(
             barrierDismissible: false,
             context: this.context,
             builder: (BuildContext context) => AlertDialog(
               title: Text('New task'),
-              content: TextFormField(
-                controller: dialogTextController,
+              content: Column(
+                children: [
+                  TextFormField(
+                    controller: taskTextController,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Approximate time'),
+                    controller: timeTextController,
+                    keyboardType: TextInputType.number,
+                  ),
+                ],
               ),
               actions: [
                 FlatButton(
@@ -70,7 +99,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                     setState(() {
-                      myItems.add(dialogTextController.text);
+                      myItems.add(TaskData(taskTextController.text, 3));
                     });
                   },
                   child: Text('Add'),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/screens/todo_screen.dart';
+import 'package:scheduler/screens/dashboard_screen.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class SurveyScreen extends StatelessWidget {
@@ -110,7 +111,7 @@ class _InitialForm extends State<InitialForm> {
               }));
               // Navigator.of(context).pushNamed(TodoScreen.routeName);
             },
-            child: Text('Submit'),
+            child: Text('Next'),
           ),
         ],
       ),
