@@ -43,9 +43,10 @@ class _TodoScreenState extends State<TodoScreen> {
             child: ListView.builder(
               itemCount: myItems.length,
               itemBuilder: (context, index) {
-                final item = myItems[index].taskName;
+                final itemName = myItems[index].taskName;
+                final itemTime = myItems[index].hours;
                 return Dismissible(
-                  key: Key(item),
+                  key: Key(itemName),
                   background: Container(color: Colors.red),
                   onDismissed: (direction) {
                     setState(() {
@@ -53,7 +54,8 @@ class _TodoScreenState extends State<TodoScreen> {
                     });
                   },
                   child: ListTile(
-                    title: Text('$item'),
+                    title: Text('$itemName'),
+                    trailing: Text('$itemTime'),
                   ),
                 );
               },
