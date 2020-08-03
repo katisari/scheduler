@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler/screens/calendar_screen.dart';
 
 class TodoScreen extends StatefulWidget {
   static const routeName = '/todo';
@@ -34,7 +35,17 @@ class _TodoScreenState extends State<TodoScreen> {
       appBar: AppBar(
         title: Text('Todo'),
         actions: [
-          IconButton(icon: Icon(Icons.calendar_today), onPressed: () {})
+          IconButton(
+              icon: Icon(Icons.calendar_today),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<Null>(
+                    builder: (BuildContext context) {
+                      return CalendarScreen();
+                    },
+                  ),
+                );
+              })
         ],
       ),
       body: Column(

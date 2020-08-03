@@ -8,41 +8,23 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  List<String> myItems = ["Hello", "World"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todo'),
+        title: Text('My Calendar'),
         actions: [
-          IconButton(icon: Icon(Icons.calendar_today), onPressed: () {})
+          // IconButton(icon: Icon(Icons.calendar_today), onPressed: () {})
         ],
       ),
-      body: ListView.builder(
-        itemCount: myItems.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = myItems[index];
-          return Dismissible(
-            key: Key(item),
-            background: Container(color: Colors.red),
-            onDismissed: (direction) {
-              setState(() {
-                myItems.removeAt(index);
-              });
-            },
-            child: ListTile(
-              title: Text('$item'),
-            ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.blue,
-      ),
+      body: Container(),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     // Add your onPressed code here!
+      //   },
+      //   child: Icon(Icons.add),
+      //   backgroundColor: Colors.blue,
+      // ),
     );
   }
 }
