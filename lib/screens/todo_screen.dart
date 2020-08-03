@@ -78,17 +78,22 @@ class _TodoScreenState extends State<TodoScreen> {
             context: this.context,
             builder: (BuildContext context) => AlertDialog(
               title: Text('New task'),
-              content: Column(
-                children: [
-                  TextFormField(
-                    controller: taskTextController,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Approximate time'),
-                    controller: timeTextController,
-                    keyboardType: TextInputType.number,
-                  ),
-                ],
+              content: Container(
+                height: 150,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Task Name'),
+                      controller: taskTextController,
+                    ),
+                    TextFormField(
+                      decoration:
+                          InputDecoration(labelText: 'Approximate time'),
+                      controller: timeTextController,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
+                ),
               ),
               actions: [
                 FlatButton(
@@ -101,7 +106,8 @@ class _TodoScreenState extends State<TodoScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                     setState(() {
-                      myItems.add(TaskData(taskTextController.text, 3));
+                      myItems.add(TaskData(taskTextController.text,
+                          int.parse(timeTextController.text)));
                     });
                   },
                   child: Text('Add'),
