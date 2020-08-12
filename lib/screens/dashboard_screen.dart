@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/screens/survey_screen.dart';
 import 'package:scheduler/screens/calendar_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routeName = '/dashboard';
