@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/screens/survey_screen.dart';
 import 'package:scheduler/screens/calendar_screen.dart';
+import 'package:scheduler/screens/todo_screen.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -26,11 +27,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: <Widget>[
                 Text(
                   'Skedooler',
-                  style: TextStyle(fontSize: 30.0),
+                  style: TextStyle(fontSize: 40.0, color: Colors.blue),
                 ),
                 Text('Turn your Tasks into Action'),
                 SizedBox(height: 50),
                 _signInButton(),
+                SizedBox(
+                  height: 20.0,
+                ),
+                OutlineButton(
+                  splashColor: Colors.grey,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<Null>(
+                        builder: (BuildContext context) {
+                          return TodoScreen();
+                        },
+                      ),
+                    );
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                  child: Text(
+                    'Skip',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
