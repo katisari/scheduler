@@ -118,5 +118,5 @@ app.*.symbols
 # Files
 *google-services.json
 *GoogleService-Info.plist
-ios/Runner/GoogleService-Info.plist
+ios/Runner.xcodeproj/project.pbxproj
 android/app/google-services.json
