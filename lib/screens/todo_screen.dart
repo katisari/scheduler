@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/screens/calendar_screen.dart';
+import 'package:sqflite/sqflite.dart';
 
 class TodoScreen extends StatefulWidget {
   static const routeName = '/todo';
@@ -22,13 +23,15 @@ class _TaskTileState extends State<TaskTile> {
 class TaskData {
   String taskName;
   int hours;
-  TaskData(this.taskName, this.hours);
+  bool isPriority;
+  TaskData(this.taskName, this.hours, this.isPriority);
 }
 
 class _TodoScreenState extends State<TodoScreen> {
   List<TaskData> myItems = [];
   TextEditingController taskTextController = TextEditingController();
   TextEditingController timeTextController = TextEditingController();
+  bool isNumeric(String str) => num.tryParse(str) != null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +59,7 @@ class _TodoScreenState extends State<TodoScreen> {
               itemBuilder: (context, index) {
                 final itemName = myItems[index].taskName;
                 final itemTime = myItems[index].hours;
+                final itemPrioritized = myItems[index].isPriority;
                 return Dismissible(
                   key: Key(itemName),
                   background: Container(color: Colors.red),
@@ -65,7 +69,29 @@ class _TodoScreenState extends State<TodoScreen> {
                     });
                   },
                   child: ListTile(
-                    title: Text('$itemName'),
+                    leading: Text('$itemName'),
+                    title: Align(
+                      child: (itemPrioritized)
+                          ? IconButton(
+                              icon: Icon(Icons.flag),
+                              onPressed: () {
+                                setState(() {
+                                  myItems.removeAt(index);
+                                  myItems
+                                      .add(TaskData(itemName, itemTime, false));
+                                });
+                              })
+                          : IconButton(
+                              icon: Icon(Icons.flag_outlined),
+                              onPressed: () {
+                                setState(() {
+                                  myItems.removeAt(index);
+                                  myItems.insert(
+                                      0, TaskData(itemName, itemTime, true));
+                                });
+                              }),
+                      alignment: Alignment(1, 0),
+                    ),
                     trailing: Text('$itemTime'),
                   ),
                 );
@@ -98,8 +124,8 @@ class _TodoScreenState extends State<TodoScreen> {
                       controller: taskTextController,
                     ),
                     TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Approximate time'),
+                      decoration: InputDecoration(
+                          labelText: 'Approximate time in hours'),
                       controller: timeTextController,
                       keyboardType: TextInputType.number,
                     ),
@@ -118,7 +144,7 @@ class _TodoScreenState extends State<TodoScreen> {
                     Navigator.of(context).pop();
                     setState(() {
                       myItems.add(TaskData(taskTextController.text,
-                          int.parse(timeTextController.text)));
+                          int.parse(timeTextController.text), false));
                     });
                   },
                   child: Text('Add'),

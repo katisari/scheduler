@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CalendarScreen extends StatefulWidget {
   static const routeName = '/calendar';
@@ -17,7 +18,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
           // IconButton(icon: Icon(Icons.calendar_today), onPressed: () {})
         ],
       ),
-      body: Container(),
+      body: Container(
+        child: SfCalendar(),
+      ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
       //     // Add your onPressed code here!
